@@ -11,7 +11,7 @@
 
 ### Estado del código
 [![DevOps](https://github.com/paulixx/iwvg-devops-martinez-paula/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/paulixx/iwvg-devops-martinez-paula/actions/workflows/continuous-integration.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aiwvg-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=es.upm.miw%3Aiwvg-devops)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulixx_iwvg-devops-martinez-paula&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulixx_iwvg-devops-martinez-paula)
 [![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
 
 
