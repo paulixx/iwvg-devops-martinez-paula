@@ -1,6 +1,6 @@
 package es.upm.miw.devops.code;
 
-import code.Fraction;
+import es.upm.miw.devops.code.Fraction;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.within;
 
