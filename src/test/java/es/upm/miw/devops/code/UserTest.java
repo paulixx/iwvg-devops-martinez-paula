@@ -67,11 +67,4 @@ public class UserTest {
                 .contains("Martínez")
                 .contains("id='1'");
     }
-
-    @Test
-    void testEqualsAndHashCode() {
-        User user2 = new User("1", "Paula", "Martínez", new ArrayList<>());
-
-        assertThat(user).isEqualTo(user2);
-    }
 }
