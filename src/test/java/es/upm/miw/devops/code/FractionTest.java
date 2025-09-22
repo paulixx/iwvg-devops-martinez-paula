@@ -80,7 +80,8 @@ class FractionTest {
         Fraction f2 = new Fraction(1, 3);
 
         Fraction result = f1.add(f2);
-        assertThat(result.toString()).isEqualTo("5/6"); // 1/2 + 1/3 = 5/6
+        assertThat(result.getNumerator()).isEqualTo(5);
+        assertThat(result.getDenominator()).isEqualTo(6);
     }
 
     @Test
@@ -89,7 +90,8 @@ class FractionTest {
         Fraction f2 = new Fraction(3, 5);
 
         Fraction result = f1.multiply(f2);
-        assertThat(result.toString()).isEqualTo("2/5"); // 2/3 * 3/5 = 6/15 = 2/5
+        assertThat(result.getNumerator()).isEqualTo(2);
+        assertThat(result.getDenominator()).isEqualTo(5);
     }
 
     @Test
@@ -98,7 +100,8 @@ class FractionTest {
         Fraction f2 = new Fraction(2, 5);
 
         Fraction result = f1.divide(f2);
-        assertThat(result.toString()).isEqualTo("15/8"); // (3/4) ÷ (2/5) = 15/8
+        assertThat(result.getNumerator()).isEqualTo(15);
+        assertThat(result.getDenominator()).isEqualTo(8);
     }
 
 }
