@@ -30,6 +30,7 @@ public class Fraction {
     private int denominator;
 
     public Fraction(int numerator, int denominator) {
+
         this.numerator = numerator;
         this.denominator = denominator;
     }
@@ -56,6 +57,53 @@ public class Fraction {
 
     public double decimal() {
         return (double) numerator / denominator;
+    }
+
+    //NUEVAS FUNCIONALIDADES
+
+    /** Fracción propia: numerador < denominador (en valor absoluto) */
+    public boolean isProper() {
+        return Math.abs(numerator) < Math.abs(denominator);
+    }
+
+    /** Fracción impropia: numerador > denominador (en valor absoluto) */
+    public boolean isImproper() {
+        return Math.abs(numerator) > Math.abs(denominator);
+    }
+
+    /** Dos fracciones son equivalentes si a*d = b*c */
+    public boolean isEquivalent(Fraction other) {
+        return this.numerator * other.denominator == this.denominator * other.numerator;
+    }
+
+    /** Suma de fracciones */
+    public Fraction add(Fraction other) {
+        int newNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
+        int newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator).simplify();
+    }
+
+    /** Multiplicación de fracciones */
+    public Fraction multiply(Fraction other) {
+        return new Fraction(this.numerator * other.numerator, this.denominator * other.denominator).simplify();
+    }
+
+    /** División de fracciones */
+    public Fraction divide(Fraction other) {
+        if (other.numerator == 0) {
+            throw new ArithmeticException("Cannot divide by fraction with numerator 0");
+        }
+        return new Fraction(this.numerator * other.denominator, this.denominator * other.numerator).simplify();
+    }
+
+    //Metodo de apoyo para simplificar fracciones
+    private int gcd(int a, int b) {
+        return b == 0 ? Math.abs(a) : gcd(b, a % b);
+    }
+
+    private Fraction simplify() {
+        int gcd = gcd(this.numerator, this.denominator);
+        return new Fraction(this.numerator / gcd, this.denominator / gcd);
     }
 
     @Override
