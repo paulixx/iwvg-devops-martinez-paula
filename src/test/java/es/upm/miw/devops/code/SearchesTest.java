@@ -56,14 +56,15 @@ class SearchesTest {
     void testFindHighestFraction() {
         Fraction highest = searches.findHighestFraction();
 
-        // Verificamos que no es nulo
         assertThat(highest).isNotNull();
-        // Comprobamos que efectivamente es la mayor
+
         double maxValue = new UsersDatabase().findAll()
                 .flatMap(u -> u.getFractions().stream())
+                .filter(f -> f != null && f.getDenominator() != 0) // ignoramos inválidas
                 .mapToDouble(Fraction::decimal)
                 .max()
                 .orElseThrow();
+
         assertThat(highest.decimal()).isEqualTo(maxValue);
     }
 }
