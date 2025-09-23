@@ -75,8 +75,13 @@ public class Searches {
                 .orElse(null);
     }
 
-    public Stream<String> findUserNameByAnyImproperFraction() {
-        return Stream.empty();
+    public Stream<String> findUserNameBySomeImproperFraction() {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getFractions().stream()
+                        .filter(Objects::nonNull)
+                        .filter(f -> f.getDenominator() != 0) // Evitar inválidas
+                        .anyMatch(Fraction::isImproper))
+                .map(User::getName);
     }
 
     public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {
