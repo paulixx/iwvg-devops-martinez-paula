@@ -89,4 +89,23 @@ class SearchesTest {
                     .isTrue();
         });
     }
+
+    @Test
+    void testFindFirstDecimalFractionByUserName() {
+        String targetName = "user1"; // cámbialo por un nombre real de tu UsersDatabase
+        Double firstDecimal = searches.findFirstDecimalFractionByUserName(targetName);
+
+        // Calculamos el esperado directamente de la UsersDatabase
+        Double expected = new UsersDatabase().findAll()
+                .filter(u -> u.getName().equals(targetName))
+                .flatMap(u -> u.getFractions().stream())
+                .filter(f -> f != null && f.getDenominator() != 0)
+                .map(Fraction::decimal)
+                .findFirst()
+                .orElse(null);
+
+        // Comparamos valores
+        assertThat(firstDecimal).isEqualTo(expected);
+    }
+
 }
