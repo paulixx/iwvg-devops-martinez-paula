@@ -100,7 +100,11 @@ public class Searches {
     }
 
     public Stream<Double> findDecimalFractionByNegativeSignFraction() {
-        return Stream.empty();
+        return new UsersDatabase().findAll()
+                .flatMap(user -> user.getFractions().stream())
+                .filter(f -> f != null && f.getDenominator() != 0)
+                .filter(f -> f.getNumerator() * f.getDenominator() < 0) // fracción con signo negativo
+                .map(Fraction::decimal);
     }
 
     public Fraction findFractionAdditionByUserId(String id) {

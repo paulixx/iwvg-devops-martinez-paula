@@ -108,4 +108,23 @@ class SearchesTest {
         assertThat(firstDecimal).isEqualTo(expected);
     }
 
+    @Test
+    void testFindDecimalFractionByNegativeSignFraction() {
+        List<Double> result = searches.findDecimalFractionByNegativeSignFraction().toList();
+
+        // Verificamos que todas las fracciones devueltas son negativas
+        assertThat(result).allSatisfy(value -> assertThat(value).isLessThan(0));
+
+        // Calculamos el esperado directamente desde UsersDatabase
+        List<Double> expected = new UsersDatabase().findAll()
+                .flatMap(u -> u.getFractions().stream())
+                .filter(f -> f != null && f.getDenominator() != 0)
+                .filter(f -> f.getNumerator() * f.getDenominator() < 0)
+                .map(Fraction::decimal)
+                .toList();
+
+        // Comparamos los resultados
+        assertThat(result).containsExactlyElementsOf(expected);
+    }
+
 }
