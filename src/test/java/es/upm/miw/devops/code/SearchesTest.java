@@ -2,6 +2,8 @@ package es.upm.miw.devops.code;
 
 import org.junit.jupiter.api.Test;
 import es.upm.miw.devops.code.Searches;
+import java.util.List;
+
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,5 +68,25 @@ class SearchesTest {
                 .orElseThrow();
 
         assertThat(highest.decimal()).isEqualTo(maxValue);
+    }
+
+    @Test
+    void testFindUserNameBySomeImproperFraction() {
+        List<String> result = searches.findUserNameBySomeImproperFraction().toList();
+
+        assertThat(result).isNotEmpty(); // debe devolver al menos un usuario
+
+        // Todos los usuarios devueltos tienen alguna fracción impropia válida
+        result.forEach(name -> {
+            boolean hasImproper = new UsersDatabase().findAll()
+                    .filter(u -> u.getName().equals(name))
+                    .flatMap(u -> u.getFractions().stream())
+                    .filter(f -> f != null && f.getDenominator() != 0) // filtramos inválidas
+                    .anyMatch(Fraction::isImproper);
+
+            assertThat(hasImproper)
+                    .as("Usuario %s debería tener al menos una fracción impropia", name)
+                    .isTrue();
+        });
     }
 }
