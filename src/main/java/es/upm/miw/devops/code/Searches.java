@@ -70,6 +70,7 @@ public class Searches {
         return new UsersDatabase().findAll()
                 .flatMap(user -> user.getFractions().stream())
                 .filter(Objects::nonNull)
+                .filter(f -> f.getDenominator() != 0) // evitamos división por 0
                 .max(Comparator.comparingDouble(Fraction::decimal))
                 .orElse(null);
     }
